@@ -1,0 +1,29 @@
+version: '3.8'
+ 
+services:
+  app:
+    # Build image dari Dockerfile di direktori ini
+    build: .
+    
+    # Nama container
+    container_name: Tugas2_Cloud_RASYID_2410010032-container
+    
+    # Map port host:container
+    ports:
+      - "8080:3000"
+    
+    # Environment variables
+    environment:
+      - PORT=3000
+      - NODE_ENV=production
+    
+    # Restart otomatis kalau container crash
+    restart: unless-stopped
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/api/health"]  # port internal container
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
