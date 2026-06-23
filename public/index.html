@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hello World - My App</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+    .container {
+      text-align: center;
+      padding: 2rem;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 999px;
+      padding: 0.4rem 1.2rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
+      backdrop-filter: blur(10px);
+    }
+    h1 {
+      font-size: 4rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #e94560, #0f3460, #533483);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 2rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .stack {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+    .tag {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      padding: 0.4rem 1rem;
+      font-size: 0.9rem;
+    }
+    .btn {
+      display: inline-block;
+      background: #e94560;
+      color: white;
+      text-decoration: none;
+      padding: 0.75rem 2rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: transform 0.2s, opacity 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn:hover { transform: translateY(-2px); opacity: 0.9; }
+    #status {
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.5);
+      min-height: 1.5rem;
+    }
+    .dot {
+      display: inline-block;
+      width: 8px; height: 8px;
+      background: #4ade80;
+      border-radius: 50%;
+      margin-right: 6px;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge">🐳 Running in Docker</div>
+    <h1>Hello, World!</h1>
+    <p>Web app sederhana dengan Node.js + Express, dikontainerisasi dengan Docker.</p>
+    <div class="stack">
+      <span class="tag">⚙️ Node.js</span>
+      <span class="tag">🚀 Express</span>
+      <span class="tag">🐳 Docker</span>
+      <span class="tag">📦 Docker Compose</span>
+    </div>
+    <button class="btn" onclick="checkHealth()">Cek Status Server</button>
+    <div id="status"></div>
+  </div>
+
+  <script>
+    async function checkHealth() {
+      const el = document.getElementById('status');
+      el.textContent = 'Mengecek...';
+      try {
+        const res = await fetch('/api/health');
+        const data = await res.json();
+        el.innerHTML = `<span class="dot"></span>${data.message}`;
+      } catch {
+        el.textContent = '❌ Gagal terhubung ke server';
+      }
+    }
+  </script>
+</body>
+</html>
