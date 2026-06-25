@@ -2,7 +2,7 @@ version: '3.8'
  
 services:
   app:
-    # Build image dari Dockerfile di direktori ini
+    # Build image dari Dockerfile di direktori
     build: .
     
     # Nama container
@@ -17,7 +17,7 @@ services:
       - PORT=3000
       - NODE_ENV=production
     
-    # Restart otomatis kalau container crash
+    # Restart otomatis
     restart: unless-stopped
     
     # Health check
